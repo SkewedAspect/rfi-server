@@ -35,6 +35,15 @@ describe('Hash module', function()
             });
     });
 
+    it('generates hashes with a given number of iterations', function(done)
+    {
+        hash.generateHash(testPass, 10)
+            .then(function(hash)
+            {
+                done();
+            });
+    });
+
     it('generates random passwords', function(done)
     {
         hash.generateRandomPassword()
