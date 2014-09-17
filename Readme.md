@@ -48,7 +48,7 @@ confirmation.
 
 ```javascript
 {
-    characterID: "..."      // The id of the character to play as.
+    character: "..."      // The id of the character to play as.
 }
 ```
 
