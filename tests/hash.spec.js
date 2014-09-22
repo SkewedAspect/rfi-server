@@ -8,6 +8,11 @@ var assert = require("assert");
 
 var hash = require("../lib/hash");
 
+var logging = require('omega-logger');
+
+// Disable logging
+logging.root.handlers = [];
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 describe('Hash module', function()

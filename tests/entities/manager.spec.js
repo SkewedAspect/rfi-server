@@ -9,6 +9,11 @@ var EventEmitter = require('events').EventEmitter;
 
 var entityManager = require('../../lib/entities/manager');
 
+var logging = require('omega-logger');
+
+// Disable logging
+logging.root.handlers = [];
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 describe('Entity Manager', function()
