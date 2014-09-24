@@ -18,7 +18,7 @@ logging.root.handlers = [];
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-var password = 'horse battery staple';
+var password = 'test';
 
 // Ensure that we have the database setup for our unit tests.
 models.Account.get('test@test.com').run()
