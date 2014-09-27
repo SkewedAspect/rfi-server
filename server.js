@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var socketio = require('socket.io');
 
+var config = require('./config');
 var package = require('./package');
 var RFIClient = require('./lib/client');
 
@@ -15,7 +16,7 @@ var logger = require('omega-logger').loggerFor(module);
 //----------------------------------------------------------------------------------------------------------------------
 
 var clients = [];
-var server = socketio.listen(8008);
+var server = socketio.listen(config.port || 8008);
 
 server.on('connection', function(socket)
 {
