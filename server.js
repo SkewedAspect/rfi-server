@@ -11,7 +11,16 @@ var config = require('./config');
 var package = require('./package');
 var RFIClient = require('./lib/client');
 
-var logger = require('omega-logger').loggerFor(module);
+//----------------------------------------------------------------------------------------------------------------------
+
+var logging = require('omega-logger');
+var logger = logging.loggerFor(module);
+
+if(config.DEBUG)
+{
+    logging.root.handlers[0].level = 'DEBUG';
+    logger.debug('Server starting in DEBUG mode.');
+} // end if
 
 //----------------------------------------------------------------------------------------------------------------------
 
