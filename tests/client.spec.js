@@ -20,90 +20,122 @@ logging.root.handlers = [];
 
 var password = 'test';
 
-// Ensure that we have the database setup for our unit tests.
-models.Account.get('test@test.com').run()
-    .then(function()
-    {
-        runTests();
-    })
-    .catch(models.errors.DocumentNotFound, function()
-    {
-        hash.generateHash(password).then(function(hashObj)
-        {
-            var char = new models.Character({
-                name: "Foobar the Magnificent",
-                faction: "Freelance",
-                race: "Human",
-                account_id: "test@test.com"
-            });
+describe('RFIClient', function()
+{
+    var client;
+    var socket;
 
-            var account = new models.Account({
-                email: 'test@test.com',
-                password: hashObj
-            });
-
-            char.save().then(function()
+    before(function(done)
+    {
+        // Ensure that we have the database setup for our unit tests.
+        models.Account.get('test@test.com').run()
+            .then(function()
             {
-                account.save().then(function()
+                done();
+            })
+            .catch(models.errors.DocumentNotFound, function()
+            {
+                hash.generateHash(password).then(function(hashObj)
                 {
-                    runTests();
+                    var char = new models.Character({
+                        name: "Foobar the Magnificent",
+                        faction: "Freelance",
+                        race: "Human",
+                        account_id: "test@test.com"
+                    });
+
+                    var account = new models.Account({
+                        email: 'test@test.com',
+                        password: hashObj
+                    });
+
+                    char.save().then(function()
+                    {
+                        account.save().then(function()
+                        {
+                            done();
+                        });
+                    });
+
                 });
             });
+    });
 
+    beforeEach(function()
+    {
+        socket = new EventEmitter();
+        client = new RFIClient(socket);
+    });
+
+    afterEach(function()
+    {
+        socket.removeAllListeners();
+    });
+
+    describe('Authentication', function()
+    {
+        it('authenticates existing users', function(done)
+        {
+            socket.emit('request', 'login', {
+                account: 'test@test.com',
+                password: password
+            }, function(response)
+            {
+                assert(response.confirm, "Failed to authenticate account.");
+                done()
+            });
+        });
+
+        it('returns a list of characters', function(done)
+        {
+            socket.emit('request', 'login', {
+                account: 'test@test.com',
+                password: password
+            }, function(response)
+            {
+                assert(response.characters.length > 0, "Failed to return characters.");
+                done()
+            });
+        });
+
+        it('rejects non-existent users', function(done)
+        {
+            socket.emit('request', 'login', {
+                account: 'bar@not-real.com',
+                password: password
+            }, function(response)
+            {
+                assert(!response.confirm, "Incorrectly authenticated account.");
+                assert.equal(response.reason, 'not_found');
+                done()
+            });
+        });
+
+        it('rejects bad passwords', function(done)
+        {
+            socket.emit('request', 'login', {
+                account: 'test@test.com',
+                password: password + '12345'
+            }, function(response)
+            {
+                assert(!response.confirm, "Incorrectly authenticated account.");
+                assert.equal(response.reason, 'bad_password');
+                done()
+            });
         });
     });
 
-// ---------------------------------------------------------------------------------------------------------------------
-
-function runTests()
-{
-    describe('RFIClient', function()
+    describe('Characters', function()
     {
-        var client;
-        var socket;
-
-        beforeEach(function()
+        it('rejects selecting non-existent characters', function(done)
         {
-            socket = new EventEmitter();
-            client = new RFIClient(socket);
-        });
-
-        afterEach(function()
-        {
-            socket.removeAllListeners();
-        });
-
-        describe('Authentication', function()
-        {
-            it('authenticates existing users', function(done)
+            socket.emit('request', 'login', {
+                account: 'test@test.com',
+                password: password
+            }, function(response)
             {
-                socket.emit('login', {
-                    account: 'test@test.com',
-                    password: password
-                }, function(response)
-                {
-                    assert(response.confirm, "Failed to authenticate account.");
-                    done()
-                });
-            });
-
-            it('returns a list of characters', function(done)
-            {
-                socket.emit('login', {
-                    account: 'test@test.com',
-                    password: password
-                }, function(response)
-                {
-                    assert(response.characters.length > 0, "Failed to return characters.");
-                    done()
-                });
-            });
-
-            it('rejects non-existent users', function(done)
-            {
-                socket.emit('login', {
-                    account: 'bar@not-real.com',
-                    password: password
+                socket.emit('request', 'select character', {
+                    character: '1234'
                 }, function(response)
                 {
                     assert(!response.confirm, "Incorrectly authenticated account.");
@@ -111,59 +143,25 @@ function runTests()
                     done()
                 });
             });
+        });
 
-            it('rejects bad passwords', function(done)
+        it('selects an existing character when authenticated', function(done)
+        {
+            socket.emit('request', 'login', {
+                account: 'test@test.com',
+                password: password
+            }, function(response)
             {
-                socket.emit('login', {
-                    account: 'test@test.com',
-                    password: password + '12345'
+                socket.emit('request', 'select character', {
+                    character: response.characters[0].id
                 }, function(response)
                 {
-                    assert(!response.confirm, "Incorrectly authenticated account.");
-                    assert.equal(response.reason, 'bad_password');
+                    assert(response.confirm, "Failed to select character.");
                     done()
                 });
             });
         });
-
-        describe('Characters', function()
-        {
-            it('rejects selecting non-existent characters', function(done)
-            {
-                socket.emit('login', {
-                    account: 'test@test.com',
-                    password: password
-                }, function(response)
-                {
-                    socket.emit('select character', {
-                        character: '1234'
-                    }, function(response)
-                    {
-                        assert(!response.confirm, "Incorrectly authenticated account.");
-                        assert.equal(response.reason, 'not_found');
-                        done()
-                    });
-                });
-            });
-
-            it('selects an existing character when authenticated', function(done)
-            {
-                socket.emit('login', {
-                    account: 'test@test.com',
-                    password: password
-                }, function(response)
-                {
-                    socket.emit('select character', {
-                        character: response.characters[0].id
-                    }, function(response)
-                    {
-                        assert(response.confirm, "Failed to select character.");
-                        done()
-                    });
-                });
-            });
-        });
     });
-} // end runTests
+});
 
 // ---------------------------------------------------------------------------------------------------------------------
