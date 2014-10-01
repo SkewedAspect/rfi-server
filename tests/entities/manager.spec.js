@@ -21,6 +21,7 @@ logging.root.handlers = [];
 describe('Entity Manager', function()
 {
     var controller = new EventEmitter();
+    controller.event = function(){ this.emit.apply(this, arguments); };
 
     var entityDef = {
         template: { behavior: './behaviors/entity' },
@@ -53,6 +54,9 @@ describe('Entity Manager', function()
 
         it('broadcasts the entity creation to all other entities', function(done)
         {
+            var controller2 = new EventEmitter();
+            controller2.event = function(){ this.emit.apply(this, arguments); };
+
             entityManager.createEntity(entityDef, controller).then(function(id)
             {
                 controller.once('create entity', function()
@@ -60,13 +64,15 @@ describe('Entity Manager', function()
                     done();
                 });
 
-                entityManager.createEntity(entityDef, new EventEmitter());
+                entityManager.createEntity(entityDef, controller2);
             });
         });
 
         it('sends the "inhabit entity" event with the new entity', function(done)
         {
             var controller2 = new EventEmitter();
+            controller2.event = function(){ this.emit.apply(this, arguments); };
+
             var inhabitEntity;
 
             entityManager.createEntity(entityDef, controller).then(function(id)
@@ -124,8 +130,13 @@ describe('Entity Manager', function()
         it('sends the message to all entities', function(done)
         {
             var ctrl = new EventEmitter();
+            ctrl.event = function(){ this.emit.apply(this, arguments); };
+
             var ctrl2 = new EventEmitter();
+            ctrl2.event = function(){ this.emit.apply(this, arguments); };
+
             var ctrl3 = new EventEmitter();
+            ctrl3.event = function(){ this.emit.apply(this, arguments); };
 
             var ctrlPromise = Promise.all([
                 new Promise(function(resolve){ ctrl.on('test', resolve); }),
@@ -157,8 +168,13 @@ describe('Entity Manager', function()
         it('supports filtering by entity id', function(done)
         {
             var ctrl = new EventEmitter();
+            ctrl.event = function(){ this.emit.apply(this, arguments); };
+
             var ctrl2 = new EventEmitter();
+            ctrl2.event = function(){ this.emit.apply(this, arguments); };
+
             var ctrl3 = new EventEmitter();
+            ctrl3.event = function(){ this.emit.apply(this, arguments); };
 
             var ctrlPromise = Promise.all([
                 new Promise(function(resolve){ ctrl.on('test', resolve); }),
