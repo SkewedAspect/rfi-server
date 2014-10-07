@@ -7,6 +7,7 @@
 var assert = require('assert');
 var EventEmitter = require('events').EventEmitter;
 
+var _ = require('lodash');
 var Promise = require('bluebird');
 
 var entityManager = require('../../lib/entities/manager');
@@ -90,6 +91,25 @@ describe('Entity Manager', function()
                 });
             });
 
+        });
+
+        it('does not add duplicate entities with the same id', function(done)
+        {
+            entityManager.createEntity(entityDef, controller).then(function(id)
+            {
+                var entityDef2 = {
+                    id: id
+                };
+
+                _.assign(entityDef2, entityDef);
+                entityDef2.name = "Barfoo";
+
+                entityManager.createEntity(entityDef2, controller).then(function(id)
+                {
+                    assert.equal(entityManager.entities[id].name, 'Foobar');
+                    done();
+                });
+            });
         });
 
         it('supports savable entities', function(done)
