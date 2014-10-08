@@ -4,6 +4,8 @@
 // @module init-db.js
 // ---------------------------------------------------------------------------------------------------------------------
 
+var Promise = require('bluebird');
+
 var hash = require('../lib/hash');
 var models = require('../lib/models');
 
