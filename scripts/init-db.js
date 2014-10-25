@@ -109,7 +109,7 @@ Promise.all([
                 block: 15,
                 dodge: 35
             },
-            model: '/models/ares/ares.babylon'
+            model: 'models/ares/ares.babylon'
         });
 
         return models.ShipTemplate.get('ares').run()
