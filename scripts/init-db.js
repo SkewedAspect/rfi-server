@@ -20,6 +20,10 @@ function makeUser(email)
         registration: {
             name: "U.S.S. Party Barge",
             serial: "OMG-8008135"
+        },
+        powers: {
+            'basic_attack': {},
+            'basic_heal': {}
         }
     });
 
@@ -35,7 +39,7 @@ function makeUser(email)
     });
 
     // Ensure that the user we're trying to create doesn't exist
-    return models.Account.get(email).run()
+    return models.Account.get(email).getJoin().run()
         .then(function(account)
         {
             console.error('User "%s" already exists. Deleting...', email);

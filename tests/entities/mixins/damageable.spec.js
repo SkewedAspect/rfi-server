@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
-// Unit Tests for the damagable.spec.js module.
+// Unit Tests for the damageable.spec.js module.
 //
-// @module damagable.spec.js
+// @module damageable.spec.js
 // ---------------------------------------------------------------------------------------------------------------------
 
 var assert = require("assert");
@@ -43,7 +43,7 @@ describe('Damageable Mixin', function()
     {
         it('attacks return the type of result, and a severity', function()
         {
-            var results = player._calcAttack(npc);
+            var results = player.attack(npc);
 
             assert(_.contains(['hit', 'crit', 'block', 'dodge'], results[0]), "Returned an unknown result type.");
             assert(0 < results[1] && results[1] < 1, "Severity is not between 0 and 1.");
@@ -64,6 +64,24 @@ describe('Damageable Mixin', function()
             npc.damage(1000000);
 
             assert.equal(npc.hitpoints, 0);
+        });
+    });
+
+    describe('Healing Damage', function()
+    {
+        it('adds incoming damage from `hitpoints`', function()
+        {
+            npc.hitpoints = 80;
+            npc.heal(10);
+
+            assert.equal(npc.hitpoints, 90);
+        });
+
+        it('will not go above 0 on hitpoints', function()
+        {
+            npc.heal(1000000);
+
+            assert.equal(npc.hitpoints, 100);
         });
     });
 });
