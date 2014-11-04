@@ -19,7 +19,8 @@
     "node-uuid": "^1.4.1",
     "omega-logger": "^0.5.6",
     "socket.io": "^1.1.0",
-    "thinky": "^1.14.4"
+    "thinky": "^1.14.4",
+    "rfi-physics": "git+https://github.com/SkewedAspect/rfi-physics.git"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
