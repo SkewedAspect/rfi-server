@@ -10,6 +10,7 @@ var socketio = require('socket.io');
 var config = require('./config');
 var package = require('./package');
 var RFIClient = require('./lib/client');
+var physics = require('./lib/physics/physics');
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -38,6 +39,9 @@ server.on('connection', function(socket)
         _.remove(clients, client);
     });
 });
+
+// Start Physics Engine
+physics.start();
 
 // We've started the application. Let's print a friendly message to tell everyone how to connect.
 var ipInfo = server.httpServer.address();

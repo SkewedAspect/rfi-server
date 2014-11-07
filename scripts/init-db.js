@@ -95,12 +95,21 @@ Promise.all([
         var shipTemplate = new models.ShipTemplate({
             name: 'ares',
             behavior: './behaviors/ship',
-            turn_rate: 25,
+            turn_rate: 10,
             max_speed: {
-                forward: 300,
-                reverse: 50,
-                left: 50,
-                right: 50
+                x: 300,
+                y: 50,
+                z: 50
+            },
+            linear_responsiveness: {
+                x: 10,
+                y: 10,
+                z: 10
+            },
+            angular_responsiveness: {
+                x: 10,
+                y: 10,
+                z: 10
             },
             hull: 100,
             stats: {
