@@ -8,6 +8,7 @@ var assert = require("assert");
 var EventEmitter = require('events').EventEmitter;
 
 var BaseEntity = require('../../../lib/entities/behaviors/entity');
+var entityMan = require('../../../lib/entities/manager');
 
 var logging = require('omega-logger');
 
@@ -25,7 +26,7 @@ describe('BaseEntity', function()
         foo: 'bar',
         bleh: 'baz',
         template: {
-            behavior: 'test-behavior'
+            behavior: './behaviors/entity'
         }
     };
 
@@ -35,6 +36,7 @@ describe('BaseEntity', function()
     beforeEach(function()
     {
         entity = new BaseEntity(entityDef, controller);
+        entityMan.createEntity(entityDef, controller);
     });
 
     describe('Creation', function()
@@ -183,7 +185,7 @@ describe('BaseEntity', function()
         {
             jsonEnt = entity.toJSON();
             assert.equal(jsonEnt.id, 'test-id');
-            assert.equal(jsonEnt.behavior, 'test-behavior')
+            assert.equal(jsonEnt.behavior, './behaviors/entity')
         });
     });
 });

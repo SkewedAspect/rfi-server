@@ -111,8 +111,8 @@ describe("Wrapper Socket", function()
         socket.on('outgoing', function(event)
         {
             assert.equal(event.type, 'event');
-            assert.equal(event.args[0], 'test');
-            assert.equal(event.args[1], arg);
+            assert.equal(event.eventName, 'test');
+            assert.equal(event.payload, arg);
             done();
         });
 

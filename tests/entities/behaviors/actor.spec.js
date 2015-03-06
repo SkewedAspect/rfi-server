@@ -28,7 +28,34 @@ describe("ActorEntity", function()
             'basic_attack': {}
         },
         template: {
-            behavior: './behaviors/actor'
+            behavior: './behaviors/actor',
+            "turn_rate": 10,
+            "max_speed": {
+                "x": 300,
+                "y": 50,
+                "z": 50
+            },
+            "linear_responsiveness": {
+                "x": 10,
+                "y": 10,
+                "z": 10
+            },
+            "angular_responsiveness": {
+                "x": 10,
+                "y": 10,
+                "z": 10
+            },
+            "hull": 100,
+            "stats": {
+                "hit": 45,
+                "crit": 5,
+                "block": 15,
+                "dodge": 35
+            },
+            "model": {
+                "name": "Ares",
+                "file": "models/ares/ares.babylon"
+            }
         }
     };
 
@@ -37,7 +64,34 @@ describe("ActorEntity", function()
             'basic_attack': {}
         },
         template: {
-            behavior: './behaviors/actor'
+            behavior: './behaviors/actor',
+            "turn_rate": 10,
+            "max_speed": {
+                "x": 300,
+                "y": 50,
+                "z": 50
+            },
+            "linear_responsiveness": {
+                "x": 10,
+                "y": 10,
+                "z": 10
+            },
+            "angular_responsiveness": {
+                "x": 10,
+                "y": 10,
+                "z": 10
+            },
+            "hull": 100,
+            "stats": {
+                "hit": 45,
+                "crit": 5,
+                "block": 15,
+                "dodge": 35
+            },
+            "model": {
+                "name": "Ares",
+                "file": "models/ares/ares.babylon"
+            }
         }
     };
 
