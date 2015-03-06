@@ -1,5 +1,7 @@
-[![Stories in Ready](https://badge.waffle.io/SkewedAspect/rfi-server.png?label=ready&title=Ready)](https://waffle.io/SkewedAspect/rfi-server)
 # RFI: Precursors MMORPG Server
+
+[![Issues in Ready](https://badge.waffle.io/SkewedAspect/rfi-server.png?label=ready&title=Ready Issues)](https://waffle.io/SkewedAspect/rfi-server)
+[![Issues in Progress](https://badge.waffle.io/SkewedAspect/rfi-server.png?label=in progress&title=In Progress Issues)](https://waffle.io/SkewedAspect/rfi-server)
 
 This is a nodejs implementation of the RFI: Precursors server.
 
