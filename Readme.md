@@ -1,7 +1,6 @@
-# NodeJS RFI: Precursors MMORPG Server
+# RFI: Precursors MMORPG Server
 
-This is a nodejs implementation of the RFI: Precursors server. The intention is to see if this can replace the current
-Erlang server with something easier to develop against.
+This is a nodejs implementation of the RFI: Precursors server.
 
 ## Setup
 
@@ -15,10 +14,10 @@ $ npm install
 After that completes, create the test user in the database:
 
 ```bash
-$ node ./scripts/init-db.js
+$ node ./scripts/initdb.js
 ```
 
-_Note: You need a clean database to run the `init-db` script._
+_Note: If you don't want the development accounts, pass the `-p` option._
 
 ## Unit Tests
 
