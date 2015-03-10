@@ -27,7 +27,7 @@
         },
         "model": {
             "name": "Ares",
-            "file": "models/ares/ares.babylon"
+            "file": "content/models/ares/ares.babylon"
         }
     }
 ]
