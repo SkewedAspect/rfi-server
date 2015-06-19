@@ -5,12 +5,12 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 var _ = require('lodash');
-var socketio = require('socket.io');
 
 var config = require('./config');
 var package = require('./package');
-var RFIClient = require('./lib/client');
+var clientMan = require('./lib/client/manager');
 var physics = require('./lib/physics/physics');
+var socketServer = require('./lib/network/socketServer');
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +25,16 @@ if(config.DEBUG)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-var clients = [];
-var server = socketio.listen(config.port || 8008);
+var server = socketServer.listen(config.port || 8008);
 
 server.on('connection', function(socket)
 {
-    var client = new RFIClient(socket);
-    clients.push(client);
+    var client = clientMan.createClient(socket);
 
     // Clean up our client connection
     socket.on('disconnect', function()
     {
-        _.remove(clients, client);
+        clientMan.removeClient(client);
     });
 });
 
