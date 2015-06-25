@@ -10,6 +10,8 @@ var _ = require('lodash');
 
 module.exports = {
     DEBUG: parseBool(process.env.DEBUG, true),
+    logLevel: process.env.LOG_LEVEL || 'DEBUG',
+
     port: 8008
 }; // end exports
 

@@ -19,8 +19,8 @@ var logger = logging.loggerFor(module);
 
 if(config.DEBUG)
 {
-    logging.root.handlers[0].level = process.env.LOG_LEVEL || 'DEBUG';
-    logger.debug('Server starting in DEBUG mode.');
+    logging.root.handlers[0].level = config.logLevel;
+    logger.info('Server starting in DEBUG mode.');
 } // end if
 
 //----------------------------------------------------------------------------------------------------------------------
