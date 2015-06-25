@@ -12,7 +12,13 @@ module.exports = {
     DEBUG: parseBool(process.env.DEBUG, true),
     logLevel: process.env.LOG_LEVEL || 'DEBUG',
 
-    port: 8008
+    port: 8008,
+
+    rethinkdb: {
+        host: 'localhost',
+        port: 28015,
+        db: 'rfi_mmorpg'
+    }
 }; // end exports
 
 // ---------------------------------------------------------------------------------------------------------------------
