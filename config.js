@@ -28,9 +28,10 @@ _.merge(module.exports, _.omit(argv, '_'));
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+// Parse a string as a boolean. (used to support boolean flags in environment variables)
 function parseBool(boolString, defaultValue)
 {
-    switch(boolString || ''.toLowerCase())
+    switch((boolString || '').toLowerCase())
     {
         case '0':
         case 'false':
