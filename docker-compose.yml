@@ -1,0 +1,14 @@
+rethinkdb:
+    image: rethinkdb:2.0
+    volumes:
+        - .:/data
+
+server:
+    build: .
+    command: node server.js --rethinkdb.host=rethinkdb
+    ports:
+        - "8008:8008"
+    volumes:
+        - .:/code
+    links:
+        - rethinkdb
