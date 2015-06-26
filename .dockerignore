@@ -1,0 +1,13 @@
+.DS_Store
+
+# IntelliJ artifacts
+.idea
+
+# Node artifacts
+node_modules
+
+# Git artifacts
+.git*
+
+# Stuff that doesn't need to be copied to the docker daemon up front
+data
