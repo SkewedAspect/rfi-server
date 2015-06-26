@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var socketio = require('socket.io');
 
+GLOBAL.programDesc = 'Start the RFI: Precursors server';
 var config = require('./config');
 var package = require('./package');
 var RFIClient = require('./lib/client');
@@ -19,8 +20,8 @@ var logger = logging.loggerFor(module);
 
 if(config.DEBUG)
 {
-    logging.root.handlers[0].level = process.env.LOG_LEVEL || 'DEBUG';
-    logger.debug('Server starting in DEBUG mode.');
+    logging.root.handlers[0].level = config.logLevel;
+    logger.info('Server starting in DEBUG mode.');
 } // end if
 
 //----------------------------------------------------------------------------------------------------------------------

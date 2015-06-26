@@ -15,8 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.3.2",
-    "commander": "^2.6.0",
     "lodash": "^2.4.1",
+    "minimist": "^1.1.1",
     "node-uuid": "^1.4.1",
     "omega-logger": "^0.5.6",
     "rfi-physics": "git+https://github.com/SkewedAspect/rfi-physics.git",

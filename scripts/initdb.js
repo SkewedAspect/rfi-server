@@ -7,8 +7,11 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 var _ = require('lodash');
-var program = require('commander');
 var Promise = require('bluebird');
+
+GLOBAL.programDesc = 'Initialize the database with data';
+GLOBAL.extraHelp = ['    --production               production mode (skips populating development accounts)'];
+var config = require('../config');
 
 var package = require('../package');
 var models = require('../lib/models');
@@ -18,14 +21,6 @@ var accounts = require('../data/accounts');
 var characters = require('../data/characters');
 var ship_instances = require('../data/ship_instances');
 var ship_templates = require('../data/ship_templates');
-
-// ---------------------------------------------------------------------------------------------------------------------
-
-program
-    .version(package.version)
-    .description('initializes the database with data')
-    .option('-p, --production', 'Production mode. (Skips populating development accounts.)')
-    .parse(process.argv);
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +44,7 @@ function loadClean(Model, initialData)
 var loadPromise = loadClean(models.ShipTemplate, ship_templates);
 
 // Check to see if we're in production mode
-if(!program.production)
+if(!config.production)
 {
     loadPromise = loadPromise
         .then(function()
