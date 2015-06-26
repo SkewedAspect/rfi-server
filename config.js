@@ -4,6 +4,8 @@
 // @module config.js
 // ---------------------------------------------------------------------------------------------------------------------
 
+var path = require('path');
+
 var _ = require('lodash');
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -22,8 +24,39 @@ module.exports = {
 }; // end exports
 
 // ---------------------------------------------------------------------------------------------------------------------
+// Parse command-line options.
 
-var argv = require('minimist')(process.argv.slice(2), {boolean: true});
+var argv = require('minimist')(process.argv.slice(2), { alias: { help: 'h' }, boolean: true });
+
+if(argv.help)
+{
+    var e = console.error.bind(console);
+    e('');
+    e('  Usage: %s [options]', path.basename(process.argv[1]));
+    e('');
+    e('  Initialize the database with data');
+    e('');
+    e('  Options:');
+    e('');
+    e('    -h, --help                 output usage information');
+    e('');
+    e('    --<config.option>=<value>  set configuration option to <value>');
+    e('    --<config.option>          set configuration option to `true`');
+    e('');
+
+    // If another module has registered extra lines for the help message, display them.
+    if(GLOBAL.extraHelp)
+    {
+        GLOBAL.extraHelp.forEach(function(extraHelpLine)
+        {
+            e(extraHelpLine);
+        });
+        e('');
+    } // end if
+
+    process.exit(1);
+} // end if
+
 _.merge(module.exports, _.omit(argv, '_'));
 
 // ---------------------------------------------------------------------------------------------------------------------
