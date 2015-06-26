@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var socketio = require('socket.io');
 
+GLOBAL.programDesc = 'Start the RFI: Precursors server';
 var config = require('./config');
 var package = require('./package');
 var RFIClient = require('./lib/client');

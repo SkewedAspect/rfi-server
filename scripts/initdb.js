@@ -9,6 +9,7 @@
 var _ = require('lodash');
 var Promise = require('bluebird');
 
+GLOBAL.programDesc = 'Initialize the database with data';
 GLOBAL.extraHelp = ['    --production               production mode (skips populating development accounts)'];
 var config = require('../config');
 

@@ -34,7 +34,7 @@ if(argv.help)
     e('');
     e('  Usage: %s [options]', path.basename(process.argv[1]));
     e('');
-    e('  Initialize the database with data');
+    e('  ' + GLOBAL.programDesc);
     e('');
     e('  Options:');
     e('');
