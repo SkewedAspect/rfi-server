@@ -13,14 +13,13 @@ GLOBAL.programDesc = 'Initialize the database with data';
 GLOBAL.extraHelp = ['    --production               production mode (skips populating development accounts)'];
 var config = require('../config');
 
-var package = require('../package');
 var models = require('../lib/models');
 
 // Initial data files
 var accounts = require('../data/accounts');
 var characters = require('../data/characters');
-var ship_instances = require('../data/ship_instances');
-var ship_templates = require('../data/ship_templates');
+var entities = require('../data/entities');
+var templates = require('../data/templates');
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -41,7 +40,7 @@ function loadClean(Model, initialData)
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Delete all existing ship templates
-var loadPromise = loadClean(models.ShipTemplate, ship_templates);
+var loadPromise = loadClean(models.Template, templates);
 
 // Check to see if we're in production mode
 if(!config.production)
@@ -52,7 +51,7 @@ if(!config.production)
             return Promise.join(
                 loadClean(models.Account, accounts),
                 loadClean(models.Character, characters),
-                loadClean(models.ShipInstance, ship_instances)
+                loadClean(models.Entity, entities)
             );
         });
 } // end if
