@@ -68,10 +68,10 @@ describe('Mixin Utility', function()
         {
             assert.equal(who, 'TestClass');
 
-            testInst.testFunc2(function(who)
+            testInst.testFunc2(function(who2)
             {
-                assert.equal(who, 'TestMixin');
-                done()
+                assert.equal(who2, 'TestMixin');
+                done();
             });
         });
     });
@@ -82,7 +82,7 @@ describe('Mixin Utility', function()
         testInst.override(function(who)
         {
             assert.equal(who, 'TestMixin');
-            done()
+            done();
         });
     });
 });

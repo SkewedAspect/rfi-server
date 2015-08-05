@@ -58,7 +58,7 @@ describe('Entity Manager', function()
             var controller2 = new EventEmitter();
             controller2.event = function(){ this.emit.apply(this, arguments); };
 
-            entityManager.createEntity(entityDef, controller).then(function(id)
+            entityManager.createEntity(entityDef, controller).then(function()
             {
                 controller.once('create entity', function()
                 {
@@ -76,7 +76,7 @@ describe('Entity Manager', function()
 
             var inhabitEntity;
 
-            entityManager.createEntity(entityDef, controller).then(function(id)
+            entityManager.createEntity(entityDef, controller).then(function()
             {
                 controller2.once('inhabit entity', function(entity)
                 {
@@ -104,9 +104,9 @@ describe('Entity Manager', function()
                 _.assign(entityDef2, entityDef);
                 entityDef2.name = "Barfoo";
 
-                entityManager.createEntity(entityDef2, controller).then(function(id)
+                entityManager.createEntity(entityDef2, controller).then(function(id2)
                 {
-                    assert.equal(entityManager.entities[id].name, 'Foobar');
+                    assert.equal(entityManager.entities[id2].name, 'Foobar');
                     done();
                 });
             });
@@ -199,7 +199,7 @@ describe('Entity Manager', function()
             var ctrlPromise = Promise.all([
                 new Promise(function(resolve){ ctrl.on('test', resolve); }),
                 new Promise(function(resolve){ ctrl2.on('test', resolve); }),
-                new Promise(function(resolve, reject){ ctrl3.on('test', reject); setTimeout(resolve, 10);})
+                new Promise(function(resolve, reject){ ctrl3.on('test', reject); setTimeout(resolve, 10); })
             ]);
 
             entityManager.createEntity(entityDef, ctrl)
@@ -213,19 +213,18 @@ describe('Entity Manager', function()
                 })
                 .then(function(id)
                 {
-                    // Listen for the controller promise to finish
-                    ctrlPromise
-                        .then(function()
-                        {
-                            done();
-                        })
-                        .catch(function(error)
-                        {
-                            assert(false, "Filter did not work properly!");
-                            done();
-                        });
-
                     entityManager.broadcast('test', null, [id]);
+
+                    // Listen for the controller promise to finish
+                    return ctrlPromise;
+                })
+                .then(function()
+                {
+                    done();
+                })
+                .catch(function(error)
+                {
+                    done(error);
                 });
         });
     });

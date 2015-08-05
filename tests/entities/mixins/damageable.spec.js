@@ -22,7 +22,7 @@ function DamageableTest()
         hit: 40,
         block: 5,
         dodge: 45
-    }
+    };
 } // end DamageableTest
 
 mixin(DamageableTest, Damageable);

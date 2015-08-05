@@ -24,9 +24,9 @@ describe('Hash module', function()
     beforeEach(function(done)
     {
         hash.generateHash(testPass)
-            .then(function(hash)
+            .then(function(testHash_)
             {
-                testHash = hash;
+                testHash = testHash_;
                 done();
             });
     });
@@ -34,7 +34,7 @@ describe('Hash module', function()
     it('generates hashes', function(done)
     {
         hash.generateHash(testPass)
-            .then(function(hash)
+            .then(function()
             {
                 done();
             });
@@ -43,7 +43,7 @@ describe('Hash module', function()
     it('generates hashes with a given number of iterations', function(done)
     {
         hash.generateHash(testPass, 10)
-            .then(function(hash)
+            .then(function()
             {
                 done();
             });
@@ -60,7 +60,7 @@ describe('Hash module', function()
                         assert.notEqual(pass1, pass2);
                         done();
                     });
-            })
+            });
     });
 
     it('verify returns true if the hash is for the correct password', function(done)
@@ -70,7 +70,7 @@ describe('Hash module', function()
             {
                 assert(verified, "testPass did not verify correctly!");
                 done();
-            })
+            });
     });
 
     it('verify returns false if the hash is for the incorrect password', function(done)
@@ -80,7 +80,7 @@ describe('Hash module', function()
             {
                 assert(!verified, "False verification!");
                 done();
-            })
+            });
     });
 });
 

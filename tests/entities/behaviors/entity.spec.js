@@ -74,7 +74,7 @@ describe('BaseEntity', function()
             controller.once('event', function(event, update)
             {
                 assert.deepEqual(update, entity.toJSON());
-                done()
+                done();
             });
 
             entity.update();
@@ -85,7 +85,7 @@ describe('BaseEntity', function()
             controller.once('event', function(event, update)
             {
                 assert.deepEqual(update, { id: 'test-id', foo: 'bar' });
-                done()
+                done();
             });
 
             entity.update(['foo']);
@@ -96,7 +96,7 @@ describe('BaseEntity', function()
             controller.once('event', function(event, update)
             {
                 assert.deepEqual(update, { id: 'test-id', foo: 'bar' });
-                done()
+                done();
             });
 
             entity.update('foo');
@@ -106,7 +106,7 @@ describe('BaseEntity', function()
         {
             var start;
             var calls = 0;
-            controller.on('event', function(event, update)
+            controller.on('event', function()
             {
                 calls++;
 
@@ -118,7 +118,7 @@ describe('BaseEntity', function()
                 {
                     // Allow for 10% inaccuracy in the throttling
                     assert(Date.now() > start + 90, "Throttling did not wait the full 100ms.");
-                    done()
+                    done();
                 } // end if
             });
 
@@ -128,20 +128,15 @@ describe('BaseEntity', function()
 
         it('combines delta updates that come in during the throttling period', function(done)
         {
-            var start;
             var calls = 0;
             controller.on('event', function(event, update)
             {
                 calls++;
 
-                if(calls == 1)
-                {
-                    start = Date.now();
-                }
-                else if(calls == 2)
+                if(calls == 2)
                 {
                     assert.deepEqual(update, { id: 'test-id', foo: 'bar', bleh: 'baz' });
-                    done()
+                    done();
                 } // end if
             });
 
@@ -185,7 +180,7 @@ describe('BaseEntity', function()
         {
             jsonEnt = entity.toJSON();
             assert.equal(jsonEnt.id, 'test-id');
-            assert.equal(jsonEnt.behavior, './behaviors/entity')
+            assert.equal(jsonEnt.behavior, './behaviors/entity');
         });
     });
 });

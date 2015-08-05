@@ -12,7 +12,7 @@ var basicAttackPower = require('../../../lib/entities/powers/basic_attack');
 
 describe('Basic Attack Power', function()
 {
-    var state, entity, target;
+    var entity, target;
 
     var entityDef = {
         id: 'attacker',
@@ -42,7 +42,6 @@ describe('Basic Attack Power', function()
 
     beforeEach(function()
     {
-        state = {};
         entity = JSON.parse(JSON.stringify(entityDef));
         target = JSON.parse(JSON.stringify(targetDef));
     });

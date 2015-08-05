@@ -10,7 +10,7 @@ var EventEmitter = require('events').EventEmitter;
 var sinon = require('sinon');
 var Promise = require('bluebird');
 
-var RFIClient = require('../lib/client');
+var RFIClient = require('../lib/client/client');
 var entityMan = require('../lib/entities/manager');
 var models = require('../lib/models');
 var hash = require('../lib/hash');
@@ -24,9 +24,12 @@ logging.root.handlers = [];
 
 var password = 'test';
 
+// `client` needs to stay in scope until this test suite is finished.
+/* exported client */
+var client;
+
 describe('RFIClient', function()
 {
-    var client;
     var socket;
     var accountMock;
     var characterMock;
@@ -58,7 +61,7 @@ describe('RFIClient', function()
                     {
                         if(notfound)
                         {
-                            return new Promise(function(){ throw new models.errors.DocumentNotFound() });
+                            return new Promise(function(){ throw new models.errors.DocumentNotFound(); });
                         }
                         else
                         {
@@ -94,7 +97,7 @@ describe('RFIClient', function()
                     {
                         if(char_notfound)
                         {
-                            return new Promise(function(){ throw new models.errors.DocumentNotFound() });
+                            return new Promise(function(){ throw new models.errors.DocumentNotFound(); });
                         }
                         else
                         {
@@ -122,6 +125,8 @@ describe('RFIClient', function()
         hashMock.restore();
         entManMock.restore();
 
+        client = undefined;
+
         notfound = false;
         char_notfound = false;
     });
@@ -136,7 +141,7 @@ describe('RFIClient', function()
             }, function(response)
             {
                 assert(response.confirm, "Failed to authenticate account.");
-                done()
+                done();
             });
         });
 
@@ -148,7 +153,7 @@ describe('RFIClient', function()
             }, function(response)
             {
                 assert(response.characters.length > 0, "Failed to return characters.");
-                done()
+                done();
             });
         });
 
@@ -164,7 +169,7 @@ describe('RFIClient', function()
             {
                 assert(!response.confirm, "Incorrectly authenticated account.");
                 assert.equal(response.reason, 'not_found');
-                done()
+                done();
             });
         });
 
@@ -181,7 +186,7 @@ describe('RFIClient', function()
             {
                 assert(!response.confirm, "Incorrectly authenticated account.");
                 assert.equal(response.reason, 'bad_password');
-                done()
+                done();
             });
         });
     });
@@ -196,15 +201,17 @@ describe('RFIClient', function()
             socket.emit('request', 'login', {
                 account: 'test@test.com',
                 password: password
-            }, function(response)
+            }, function(loginResponse)
             {
+                assert(!loginResponse.confirm, "Login failed.");
+
                 socket.emit('request', 'select character', {
                     character: '1234'
                 }, function(response)
                 {
                     assert(!response.confirm, "Incorrectly selected character.");
                     assert.equal(response.reason, 'not_found');
-                    done()
+                    done();
                 });
             });
         });
@@ -214,14 +221,14 @@ describe('RFIClient', function()
             socket.emit('request', 'login', {
                 account: 'test@test.com',
                 password: password
-            }, function(response)
+            }, function(loginResponse)
             {
                 socket.emit('request', 'select character', {
-                    character: response.characters[0].id
+                    character: loginResponse.characters[0].id
                 }, function(response)
                 {
                     assert(response.confirm, "Failed to select character.");
-                    done()
+                    done();
                 });
             });
         });
