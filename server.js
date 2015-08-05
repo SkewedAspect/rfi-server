@@ -4,6 +4,8 @@
 // @module server
 //----------------------------------------------------------------------------------------------------------------------
 
+require("babel/register");
+
 var _ = require('lodash');
 
 GLOBAL.programDesc = 'Start the RFI: Precursors server';
