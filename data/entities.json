@@ -1,7 +1,6 @@
 [
     {
         "id": "908c5957-338b-43af-be58-b4a6208b9a9c",
-        "behavior": "./behaviors/ship",
         "ownerID": "c312b63e-5756-4a1a-8b7a-ab84ac41aa47",
         "templateName": "ares",
         "state": {
@@ -20,7 +19,6 @@
     },
     {
         "id": "81c24f3e-258a-41aa-857a-e7197f4c4f40",
-        "behavior": "./behaviors/ship",
         "ownerID": "f7ceea6b-903f-456b-a672-8a78c80a1414",
         "templateName": "ares",
         "state": {
@@ -39,7 +37,6 @@
     },
     {
         "id": "965d87e9-7591-4355-acdc-340ade67fd82",
-        "behavior": "./behaviors/ship",
         "ownerID": "97ebac56-99e7-48bc-bcfd-51c43b65f404",
         "templateName": "ares",
         "state": {
@@ -58,7 +55,6 @@
     },
     {
         "id": "fe0fd140-4183-4102-8d70-06f27d7fee49",
-        "behavior": "./behaviors/ship",
         "ownerID": "21c2cbcd-2b4f-4fb6-95e1-af2b4e2e08a1",
         "templateName": "ares",
         "state": {
@@ -77,7 +73,6 @@
     },
     {
         "id": "912999ed-a951-420f-bfcb-ce295758aea1",
-        "behavior": "./behaviors/ship",
         "ownerID": "7e6b6d79-c658-4bb4-8131-540e02691b6b",
         "templateName": "ares",
         "state": {

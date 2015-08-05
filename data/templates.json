@@ -2,6 +2,7 @@
     {
         "name": "ares",
         "type": "frigate",
+        "behavior": "./behaviors/ship",
         "baseState": {
             "turnRate": 10,
             "maxSpeed": {

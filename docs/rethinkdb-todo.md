@@ -20,6 +20,7 @@ We need a core entity model, as opposed to several. This means we probably need 
 ### Template
  - `name`: String
  - `type`: String
+ - `behavior`: String
  - `baseState`: Object
 
  `Entities` in this design are very basic objects, with a `state` property, which will mostly be managed by the behavior.
@@ -32,6 +33,7 @@ We need a core entity model, as opposed to several. This means we probably need 
  {
    name: "ares",
    type: "player ship",
+   behavior: "ship",
    baseState: { ... }
  }
  ```
@@ -41,7 +43,6 @@ We need a core entity model, as opposed to several. This means we probably need 
  ```javascript
  {
    id: "...",
-   behavior: "ship",
    ownerID: "...",
    entityManagerID: "...",
    state: { ... },
