@@ -34,6 +34,7 @@ rules:
     no-extra-semi: 2
     semi-spacing: 2
     comma-spacing: 2
+    no-shadow: 1
     no-unused-vars: 1
     no-use-before-define: [2, "nofunc"]
 
