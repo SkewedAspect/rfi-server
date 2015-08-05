@@ -34,12 +34,12 @@ rules:
     no-extra-semi: 2
     semi-spacing: 2
     comma-spacing: 2
-    strict: [1, "global"]
     no-unused-vars: 1
     no-use-before-define: [2, "nofunc"]
 
     # Disabled:
     no-underscore-dangle: 0
     quotes: 0
+    strict: 0
 
 # vim: ft=yaml
