@@ -54,6 +54,7 @@ if(argv.help)
         e('');
     } // end if
 
+    /* eslint-disable no-process-exit */
     process.exit(1);
 } // end if
 

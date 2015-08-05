@@ -61,6 +61,7 @@ loadPromise
     .then(function()
     {
         console.log('Finished loading.');
+        /* eslint-disable no-process-exit */
         process.exit();
     });
 
