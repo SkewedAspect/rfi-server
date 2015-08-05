@@ -4,7 +4,7 @@
   "description": "A nodejs implementation of the MMORPG server for RFI:Precursors",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha tests --reporter spec --recursive"
+    "test": "./node_modules/.bin/mocha tests --reporter spec --recursive --compilers js:babel/register"
   },
   "keywords": [
     "rfi",
