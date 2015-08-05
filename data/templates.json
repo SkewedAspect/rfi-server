@@ -3,18 +3,18 @@
         "name": "ares",
         "type": "frigate",
         "baseState": {
-            "turn_rate": 10,
-            "max_speed": {
+            "turnRate": 10,
+            "maxSpeed": {
                 "x": 300,
                 "y": 50,
                 "z": 50
             },
-            "linear_responsiveness": {
+            "linearResponsiveness": {
                 "x": 10,
                 "y": 10,
                 "z": 10
             },
-            "angular_responsiveness": {
+            "angularResponsiveness": {
                 "x": 10,
                 "y": 10,
                 "z": 10
