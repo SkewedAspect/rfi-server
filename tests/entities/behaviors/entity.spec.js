@@ -151,15 +151,15 @@ describe('BaseEntity', function()
 
     describe('.save()', function()
     {
-        it('instantly resolves if there was no `save()` in the entity definition', function(done)
+        it('instantly resolves if there was no `save()` in the entity definition', function()
         {
             assert.equal(entity.$save, undefined);
 
-            entity.save().then(function(results)
-            {
-                assert.equal(results, undefined);
-                done();
-            });
+            return entity.save()
+                .then(function(results)
+                {
+                    assert.equal(results, undefined);
+                });
         });
 
         it('calls `$save()` if there was a `save()` in the entity definition', function(done)

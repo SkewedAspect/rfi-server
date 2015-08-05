@@ -101,14 +101,14 @@ describe("ActorEntity", function()
     var controller2 = new EventEmitter();
     controller2.event = controller2.emit.bind(controller2, 'event');
 
-    beforeEach(function(done)
+    beforeEach(function()
     {
         entity = new ActorEntity(entityDef, controller);
-        entityMan.createEntity(targetDef, controller2).then(function(id)
-        {
-            target = entityMan.entities[id];
-            done();
-        });
+        return entityMan.createEntity(targetDef, controller2)
+            .then(function(id)
+            {
+                target = entityMan.entities[id];
+            });
     });
 
     afterEach(function()

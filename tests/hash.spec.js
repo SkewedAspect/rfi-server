@@ -21,65 +21,53 @@ describe('Hash module', function()
     var testPass = "horse battery staple";
     var testHash;
 
-    beforeEach(function(done)
+    beforeEach(function()
     {
-        hash.generateHash(testPass)
+        return hash.generateHash(testPass)
             .then(function(testHash_)
             {
                 testHash = testHash_;
-                done();
             });
     });
 
-    it('generates hashes', function(done)
+    it('generates hashes', function()
     {
-        hash.generateHash(testPass)
-            .then(function()
-            {
-                done();
-            });
+        return hash.generateHash(testPass);
     });
 
-    it('generates hashes with a given number of iterations', function(done)
+    it('generates hashes with a given number of iterations', function()
     {
-        hash.generateHash(testPass, 10)
-            .then(function()
-            {
-                done();
-            });
+        return hash.generateHash(testPass, 10);
     });
 
-    it('generates random passwords', function(done)
+    it('generates random passwords', function()
     {
-        hash.generateRandomPassword()
+        return hash.generateRandomPassword()
             .then(function(pass1)
             {
                 return hash.generateRandomPassword()
                     .then(function(pass2)
                     {
                         assert.notEqual(pass1, pass2);
-                        done();
                     });
             });
     });
 
-    it('verify returns true if the hash is for the correct password', function(done)
+    it('verify returns true if the hash is for the correct password', function()
     {
-        hash.verifyHash(testPass, testHash)
+        return hash.verifyHash(testPass, testHash)
             .then(function(verified)
             {
                 assert(verified, "testPass did not verify correctly!");
-                done();
             });
     });
 
-    it('verify returns false if the hash is for the incorrect password', function(done)
+    it('verify returns false if the hash is for the incorrect password', function()
     {
-        hash.verifyHash('horse battery apple', testHash)
+        return hash.verifyHash('horse battery apple', testHash)
             .then(function(verified)
             {
                 assert(!verified, "False verification!");
-                done();
             });
     });
 });
