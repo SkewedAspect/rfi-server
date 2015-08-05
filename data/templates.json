@@ -2,7 +2,7 @@
     {
         "name": "ares",
         "type": "frigate",
-        "base": {
+        "baseState": {
             "turn_rate": 10,
             "max_speed": {
                 "x": 300,
