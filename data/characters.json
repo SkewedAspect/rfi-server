@@ -1,7 +1,7 @@
 [
     {
         "accountID": "test4@test.com",
-        "activeShipID": "fe0fd140-4183-4102-8d70-06f27d7fee49",
+        "activeAvatarID": "fe0fd140-4183-4102-8d70-06f27d7fee49",
         "faction": "Freelance",
         "id": "21c2cbcd-2b4f-4fb6-95e1-af2b4e2e08a1",
         "level": 1,
@@ -11,7 +11,7 @@
     },
     {
         "accountID": "test@test.com",
-        "activeShipID": "81c24f3e-258a-41aa-857a-e7197f4c4f40",
+        "activeAvatarID": "81c24f3e-258a-41aa-857a-e7197f4c4f40",
         "faction": "Freelance",
         "id": "f7ceea6b-903f-456b-a672-8a78c80a1414",
         "level": 1,
@@ -21,7 +21,7 @@
     },
     {
         "accountID": "test3@test.com",
-        "activeShipID": "912999ed-a951-420f-bfcb-ce295758aea1",
+        "activeAvatarID": "912999ed-a951-420f-bfcb-ce295758aea1",
         "faction": "Freelance",
         "id": "7e6b6d79-c658-4bb4-8131-540e02691b6b",
         "level": 1,
@@ -31,7 +31,7 @@
     },
     {
         "accountID": "test2@test.com",
-        "activeShipID": "965d87e9-7591-4355-acdc-340ade67fd82",
+        "activeAvatarID": "965d87e9-7591-4355-acdc-340ade67fd82",
         "faction": "Freelance",
         "id": "97ebac56-99e7-48bc-bcfd-51c43b65f404",
         "level": 1,
@@ -41,7 +41,7 @@
     },
     {
         "accountID": "test1@test.com",
-        "activeShipID": "908c5957-338b-43af-be58-b4a6208b9a9c",
+        "activeAvatarID": "908c5957-338b-43af-be58-b4a6208b9a9c",
         "faction": "Freelance",
         "id": "c312b63e-5756-4a1a-8b7a-ab84ac41aa47",
         "level": 1,
