@@ -84,3 +84,15 @@ We need a core entity model, as opposed to several. This means we probably need 
        - [ ] Work Damageable code into actor behavior.
     - [ ] `Ship`
        - [ ] Convert
+ - [ ] Remove `/network/socket.js`.
+ - [ ] Unit Tests
+    - [ ] Get current tests running, disabled, or removed.
+    - [ ] Add tests for `ObjectProxy`
+    - [ ] Remove `network/socket.spec.js` tests.
+    - [ ] Entities
+        - [ ] `EntityManager`
+        - [ ] Remove Mixins
+        - [ ] Behaviors
+            - [ ] `entity.spec.js`
+            - [ ] `actor.spec.js`
+
