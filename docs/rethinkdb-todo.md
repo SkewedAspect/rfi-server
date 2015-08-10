@@ -65,3 +65,22 @@ We need a core entity model, as opposed to several. This means we probably need 
  ```
  What's neat about this, is it allows us to swap out the behavior, if we want, simply by chancing that one field. If we
  want the ship to suddenly come to life because of a scripted event, we totally can.
+ 
+ -----------------------------------------------------------------------------------------------------------------------
+
+## ToDo:
+
+ - [ ] `Client` and `ClientManager`
+    - [ ] `Client` should call an API in the `ClientManager` to load the avatar, and the `ClientManager` should be in charge of connecting the events from the socket to the entity.
+    - [ ] `ClientManager` should use a raw change feed to detect entities loaded, unloaded and changed, for the purpose of updating the clients.
+ - [ ] Behaviors
+    - [X] `Entity`
+       - [X] Cleanup (or justify) `handle*` vs `on*` functions.
+    - [ ] `Physical`
+       - [ ] Convert
+       - [ ] Move Physics off into it's own manager/class (eventually it's own process)
+    - [ ] `Actor`
+       - [ ] Convert
+       - [ ] Work Damageable code into actor behavior.
+    - [ ] `Ship`
+       - [ ] Convert
