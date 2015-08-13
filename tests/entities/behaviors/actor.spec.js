@@ -117,7 +117,7 @@ describe("ActorEntity", function()
         controller2.removeAllListeners();
     });
 
-    describe("Powers", function()
+    describe.skip("Powers", function()
     {
         it("creates a list of power modules", function()
         {
