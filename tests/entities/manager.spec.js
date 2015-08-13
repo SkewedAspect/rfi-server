@@ -36,11 +36,11 @@ describe('Entity Manager', function()
         entityManager.entities = {};
     });
 
-    describe('.createEntity()', function()
+    describe.skip('.create()', function()
     {
         it('creates entities', function()
         {
-            return entityManager.createEntity(entityDef, controller)
+            return entityManager.create(entityDef, controller)
                 .then(function(id)
                 {
 
@@ -58,7 +58,7 @@ describe('Entity Manager', function()
             var controller2 = new EventEmitter();
             controller2.event = function(){ this.emit.apply(this, arguments); };
 
-            entityManager.createEntity(entityDef, controller)
+            entityManager.create(entityDef, controller)
                 .then(function()
                 {
                     controller.once('create entity', function()
@@ -66,7 +66,7 @@ describe('Entity Manager', function()
                         done();
                     });
 
-                    entityManager.createEntity(entityDef, controller2);
+                    entityManager.create(entityDef, controller2);
                 });
         });
 
@@ -77,7 +77,7 @@ describe('Entity Manager', function()
 
             var inhabitEntity;
 
-            return entityManager.createEntity(entityDef, controller)
+            return entityManager.create(entityDef, controller)
                 .then(function()
                 {
                     controller2.once('inhabit entity', function(entity)
@@ -85,7 +85,7 @@ describe('Entity Manager', function()
                         inhabitEntity = entity;
                     });
 
-                    return entityManager.createEntity(entityDef, controller2)
+                    return entityManager.create(entityDef, controller2)
                         .then(function(id)
                         {
                             assert(inhabitEntity, 'The "inhabit entity" event was not called.');
@@ -97,7 +97,7 @@ describe('Entity Manager', function()
 
         it('does not add duplicate entities with the same id', function()
         {
-            return entityManager.createEntity(entityDef, controller)
+            return entityManager.create(entityDef, controller)
                 .then(function(id)
                 {
                     var entityDef2 = {
@@ -107,7 +107,7 @@ describe('Entity Manager', function()
                     _.assign(entityDef2, entityDef);
                     entityDef2.name = "Barfoo";
 
-                    return entityManager.createEntity(entityDef2, controller)
+                    return entityManager.create(entityDef2, controller)
                         .then(function(id2)
                         {
                             assert.equal(entityManager.entities[id2].name, 'Foobar');
@@ -131,94 +131,21 @@ describe('Entity Manager', function()
         });
     });
 
-    describe('.removeEntity()', function()
+    describe.skip('.unload()', function()
     {
         it('removes entities', function()
         {
-            return entityManager.createEntity(entityDef, controller)
+            return entityManager.create(entityDef, controller)
                 .then(function(id)
                 {
                     var entity = entityManager.entities[id];
                     assert.equal(entity.name, entityDef.name);
 
-                    return entityManager.removeEntity(entity.id)
+                    return entityManager.unload(entity.id)
                         .then(function()
                         {
                             assert.equal(entityManager.entities[id], undefined);
                         });
-                });
-        });
-    });
-
-    describe('.broadcast()', function()
-    {
-        it('sends the message to all entities', function()
-        {
-            var ctrl = new EventEmitter();
-            ctrl.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrl2 = new EventEmitter();
-            ctrl2.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrl3 = new EventEmitter();
-            ctrl3.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrlPromise = Promise.all([
-                new Promise(function(resolve){ ctrl.on('test', resolve); }),
-                new Promise(function(resolve){ ctrl2.on('test', resolve); }),
-                new Promise(function(resolve){ ctrl3.on('test', resolve); })
-            ]);
-
-            return entityManager.createEntity(entityDef, ctrl)
-                .then(function()
-                {
-                    return entityManager.createEntity(entityDef, ctrl2);
-                })
-                .then(function()
-                {
-                    return entityManager.createEntity(entityDef, ctrl3);
-                })
-                .then(function()
-                {
-                    entityManager.broadcast('test');
-
-                    // Listen for the controller promise to finish
-                    return ctrlPromise;
-                });
-        });
-
-        it('supports filtering by entity id', function()
-        {
-            var ctrl = new EventEmitter();
-            ctrl.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrl2 = new EventEmitter();
-            ctrl2.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrl3 = new EventEmitter();
-            ctrl3.event = function(){ this.emit.apply(this, arguments); };
-
-            var ctrlPromise = Promise.all([
-                new Promise(function(resolve){ ctrl.on('test', resolve); }),
-                new Promise(function(resolve){ ctrl2.on('test', resolve); }),
-                new Promise(function(resolve, reject){ ctrl3.on('test', reject); setTimeout(resolve, 10); })
-            ]);
-
-            return entityManager.createEntity(entityDef, ctrl)
-                .then(function()
-                {
-                    return entityManager.createEntity(entityDef, ctrl2);
-                })
-                .then(function()
-                {
-                    return entityManager.createEntity(entityDef, ctrl3);
-                })
-                .then(function(id)
-                {
-                    entityManager.broadcast('test', null, [id]);
-
-                    // Listen for the controller promise to finish
-                    return ctrlPromise;
                 });
         });
     });
