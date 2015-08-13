@@ -232,12 +232,10 @@ describe('RFIClient', function()
                 password: password
             }, function(loginResponse)
             {
-                console.log('resp:', loginResponse);
                 socket.emit('request', 'select character', {
                     character: loginResponse.characters[0].id
                 }, function(response)
                 {
-                    console.log('response:', response);
                     assert(response.confirm, "Failed to select character.");
                     done();
                 });
