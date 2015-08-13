@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - 0.12
+
+before_script:
+  - npm install -g bower grunt-cli
+
+notifications:
+  slack: skewedaspect:zINIXYjK8YSDFl0RMzjYhKYr
+
+# Turn off `sudo` support in order to use Travis CI's Container-based environment.
+# See http://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
+sudo: false
