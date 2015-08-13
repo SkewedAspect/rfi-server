@@ -10,10 +10,10 @@ var EventEmitter = require('events').EventEmitter;
 var sinon = require('sinon');
 var Promise = require('bluebird');
 
-var RFIClient = require('../lib/client/client');
-var entityMan = require('../lib/entities/manager');
-var models = require('../lib/models');
-var hash = require('../lib/hash');
+var RFIClient = require('../../lib/client/client');
+var entityMan = require('../../lib/entities/manager');
+var models = require('../../lib/models');
+var hash = require('../../lib/hash');
 
 var logging = require('omega-logger');
 
@@ -41,11 +41,16 @@ describe('RFIClient', function()
     beforeEach(function()
     {
         socket = new EventEmitter();
+        socket.client = { id: Date.now() };
         client = new RFIClient(socket);
 
         // Mock entityMan.createEntity
         entManMock = sinon.mock(entityMan);
-        entManMock.expects('createEntity');
+        entManMock.expects('load').returns(Promise.resolve({
+            onEvent: function(){},
+            onRequest: function(){},
+            on: function(){}
+        }));
 
         // Mock hash.verifyHash
         hashMock = sinon.mock(hash);
@@ -74,9 +79,11 @@ describe('RFIClient', function()
                                 },
                                 characters: [
                                     {
+                                        id: 'some-id',
                                         name: "Foobar the Magnificent",
                                         faction: "Freelance",
                                         race: "Human",
+                                        activeAvatar: {},
                                         account_id: "test@test.com"
                                     }
                                 ]
@@ -106,7 +113,7 @@ describe('RFIClient', function()
                                 faction: "Freelance",
                                 race: "Human",
                                 account_id: "test@test.com",
-                                activeShip: {
+                                activeAvatar: {
                                     zone: 'some-zone'
                                 }
                             });
@@ -119,6 +126,8 @@ describe('RFIClient', function()
 
     afterEach(function()
     {
+        socket.emit('disconnect');
+
         socket.removeAllListeners();
         accountMock.restore();
         characterMock.restore();
@@ -203,7 +212,7 @@ describe('RFIClient', function()
                 password: password
             }, function(loginResponse)
             {
-                assert(!loginResponse.confirm, "Login failed.");
+                assert(loginResponse.confirm, "Login failed.");
 
                 socket.emit('request', 'select character', {
                     character: '1234'
@@ -223,10 +232,12 @@ describe('RFIClient', function()
                 password: password
             }, function(loginResponse)
             {
+                console.log('resp:', loginResponse);
                 socket.emit('request', 'select character', {
                     character: loginResponse.characters[0].id
                 }, function(response)
                 {
+                    console.log('response:', response);
                     assert(response.confirm, "Failed to select character.");
                     done();
                 });
