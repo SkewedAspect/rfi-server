@@ -6,9 +6,9 @@
         "baseState": {
             "turnRate": 10,
             "maxSpeed": {
-                "x": 300,
-                "y": 50,
-                "z": 50
+                "x": 30,
+                "y": 5,
+                "z": 5
             },
             "linearResponsiveness": {
                 "x": 10,
