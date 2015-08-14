@@ -9,7 +9,7 @@ require("babel/register");
 GLOBAL.programDesc = 'Start the RFI: Precursors server';
 var config = require('./config');
 var package = require('./package');
-var clientMan = require('./lib/client/manager');
+var clientMan = require('./lib/connection/manager');
 var physics = require('./lib/physics/physics');
 var socketServer = require('./lib/network/socketServer');
 

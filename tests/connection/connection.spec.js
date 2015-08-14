@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
-// Unit Tests for the client.js module.
+// Unit Tests for the connection.js module.
 //
-// @module client.spec.js
+// @module connection.spec.js
 // ---------------------------------------------------------------------------------------------------------------------
 
 var assert = require("assert");
@@ -10,7 +10,7 @@ var EventEmitter = require('events').EventEmitter;
 var sinon = require('sinon');
 var Promise = require('bluebird');
 
-var RFIClient = require('../../lib/client/client');
+var RFIClient = require('../../lib/connection/connection');
 var entityMan = require('../../lib/entities/manager');
 var models = require('../../lib/models');
 var hash = require('../../lib/hash');
@@ -24,11 +24,11 @@ logging.root.handlers = [];
 
 var password = 'test';
 
-// `client` needs to stay in scope until this test suite is finished.
-/* exported client */
+// `connection` needs to stay in scope until this test suite is finished.
+/* exported connection */
 var client;
 
-describe('RFIClient', function()
+describe('RFIConnection', function()
 {
     var socket;
     var accountMock;
