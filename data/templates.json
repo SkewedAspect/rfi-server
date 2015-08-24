@@ -20,7 +20,7 @@
                 "y": 10,
                 "z": 10
             },
-            "hull": 100,
+            "maxHitpoints": 100,
             "stats": {
                 "hit": 45,
                 "crit": 5,
