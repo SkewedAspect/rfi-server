@@ -1,12 +1,12 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Unit Tests for the basic_attack.js module.
 //
-// @module basic_attack.spec.js
+// @module basicAttack.spec.js
 // ---------------------------------------------------------------------------------------------------------------------
 
 var assert = require("assert");
 
-var basicAttackPower = require('../../../lib/entities/powers/basic_attack');
+var basicAttackPower = require('../../../lib/entities/powers/basicAttack');
 
 // ---------------------------------------------------------------------------------------------------------------------
 

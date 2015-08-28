@@ -1,12 +1,12 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Unit Tests for the basic_heal.js module.
 //
-// @module basic_heal.spec.js
+// @module basicHeal.spec.js
 // ---------------------------------------------------------------------------------------------------------------------
 
 var assert = require("assert");
 
-var basicHealPower = require('../../../lib/entities/powers/basic_heal');
+var basicHealPower = require('../../../lib/entities/powers/basicHeal');
 
 // ---------------------------------------------------------------------------------------------------------------------
 
